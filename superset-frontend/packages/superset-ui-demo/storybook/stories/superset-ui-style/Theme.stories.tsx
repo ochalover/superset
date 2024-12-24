@@ -29,15 +29,15 @@ export const AntDFunctionalColors = ({ antdTheme }) => {
   // Define color types and variations dynamically
   const colorTypes = ['Primary', 'Success', 'Error', 'Warning', 'Info'];
   const variations = [
-    'Bg',
-    'BgHover',
-    'Border',
-    'BorderHover',
-    'Hover',
-    'TextHover',
-    'Text',
-    'TextActive',
     'Active',
+    'TextActive',
+    'Text',
+    'TextHover',
+    'Hover',
+    'BorderHover',
+    'Border',
+    'BgHover',
+    'Bg',
   ];
 
   return (
