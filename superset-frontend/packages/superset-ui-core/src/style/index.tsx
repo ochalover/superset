@@ -177,32 +177,24 @@ const computeTheme = (colors, isDarkTheme = false) => {
   if (isDarkTheme) {
     baseTheme = makeThemeDark(baseTheme);
   }
-  const antdThemeSeed = {
-    token: {
-      // Base Colors
-      colorPrimary: theme.colors.primary.base,
-      colorSuccess: colors.success.base,
-      colorWarning: colors.warning.base,
-      colorError: colors.error.base,
-      colorInfo: colors.info.base,
 
-      // Optional: Add grid unit for spacing
-      borderRadius: customTheme.borderRadius,
-    },
+  const antdThemeSeed = {
+    ...antdTheme.defaultSeed,
+    colorPrimary: baseTheme.colors.primary.base,
+    colorSuccess: baseTheme.colors.success.base,
+    colorWarning: baseTheme.colors.warning.base,
+    colorError: baseTheme.colors.error.base,
+    colorInfo: baseTheme.colors.info.base,
+
+    borderRadius: baseTheme.borderRadius,
+
+    fontSize: baseTheme.typography.sizes.m,
+    fontFamily: baseTheme.typography.families.sansSerif,
   };
-  const antdTheme = {
-    token: {
-      colorPrimary: baseTheme.colors.primary.base,
-      colorSuccess: baseTheme.colors.success.base,
-      colorWarning: baseTheme.colors.warning.base,
-      colorError: baseTheme.colors.error.base,
-      colorInfo: baseTheme.colors.info.base,
-      borderRadius: baseTheme.borderRadius,
-    },
-  };
+
   const computedAntdTheme = isDarkTheme
     ? antdTheme.darkAlgorithm(antdThemeSeed)
-    : antdTheme.lightAlgorithm(antdThemeSeed);
+    : antdTheme.defaultAlgorithm(antdThemeSeed);
   return {
     ...baseTheme,
     antd: computedAntdTheme,
@@ -219,12 +211,12 @@ const baseColors = {
   info: '#66BCFE',
   grayscale: '#666666',
 };
-const computedTheme = computeTheme(baseColors, isDarkTheme);
+const computedTheme = computeTheme(baseColors, false);
 
 export type SupersetTheme = ReturnType<typeof makeThemeDark>;
 
 export interface SupersetThemeProps {
   theme: SupersetTheme;
 }
-console.log('THENE', computedTheme);
+console.log('THEME', computedTheme);
 export const supersetTheme = computedTheme;
