@@ -195,9 +195,13 @@ const computeTheme = (colors, isDarkTheme = false) => {
   const computedAntdTheme = isDarkTheme
     ? antdTheme.darkAlgorithm(antdThemeSeed)
     : antdTheme.defaultAlgorithm(antdThemeSeed);
+  // Filter out duplicated keys for colors
+  const filteredAntdTheme = Object.fromEntries(
+    Object.entries(computedAntdTheme).filter(([key]) => !key.includes('-')),
+  );
   return {
     ...baseTheme,
-    antd: computedAntdTheme,
+    antd: filteredAntdTheme,
   };
 };
 

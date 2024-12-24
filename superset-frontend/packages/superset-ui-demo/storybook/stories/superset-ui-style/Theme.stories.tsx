@@ -23,6 +23,143 @@ export default {
   title: 'Core Packages/@superset-ui-style',
 };
 
+export const AntDFunctionalColors = ({ antdTheme }) => {
+  const { antd } = supersetTheme;
+
+  // Define color types and variations dynamically
+  const colorTypes = ['Primary', 'Success', 'Error', 'Warning', 'Info'];
+  const variations = [
+    'Bg',
+    'BgHover',
+    'Border',
+    'BorderHover',
+    'Hover',
+    'TextHover',
+    'Text',
+    'TextActive',
+    'Active',
+  ];
+
+  return (
+    <table
+      style={{ borderCollapse: 'collapse', width: '100%', textAlign: 'left' }}
+    >
+      <thead>
+        <tr>
+          <th style={{ border: '1px solid #ddd', padding: '8px' }}>Type</th>
+          {variations.map(variation => (
+            <th
+              key={variation}
+              style={{ border: '1px solid #ddd', padding: '8px' }}
+            >
+              {variation}
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {colorTypes.map(type => {
+          const typeKey = `color${type}`;
+          return (
+            <tr key={type}>
+              <td style={{ border: '1px solid #ddd', padding: '8px' }}>
+                <strong>{type}</strong>
+              </td>
+              {variations.map(variation => {
+                const tokenKey = `${typeKey}${variation}`;
+                const color = antd[tokenKey];
+                return (
+                  <td
+                    key={variation}
+                    style={{
+                      border: '1px solid #ddd',
+                      padding: '8px',
+                      backgroundColor: color || 'transparent',
+                      color: antdTheme[`color${type}${variation}`],
+                    }}
+                  >
+                    {color ? <code>{color}</code> : '-'}
+                  </td>
+                );
+              })}
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  );
+};
+
+export const AntDSystemColors = ({ antdTheme }) => {
+  const { antd } = supersetTheme;
+
+  // Define color types and variations dynamically
+  const colorTypes = [
+    'blue',
+    'purple',
+    'cyan',
+    'green',
+    'magenta',
+    'pink',
+    'red',
+    'orange',
+    'yellow',
+    'volcano',
+    'geekblue',
+    'gold',
+    'lime',
+  ];
+  const variations = ['', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+
+  return (
+    <table
+      style={{ borderCollapse: 'collapse', width: '100%', textAlign: 'left' }}
+    >
+      <thead>
+        <tr>
+          <th style={{ border: '1px solid #ddd', padding: '8px' }}>Type</th>
+          {variations.map(variation => (
+            <th
+              key={variation}
+              style={{ border: '1px solid #ddd', padding: '8px' }}
+            >
+              {variation}
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {colorTypes.map(type => {
+          const typeKey = `color${type}`;
+          return (
+            <tr key={type}>
+              <td style={{ border: '1px solid #ddd', padding: '8px' }}>
+                <strong>{type}</strong>
+              </td>
+              {variations.map(variation => {
+                const tokenKey = `${typeKey}${variation}`;
+                const color = antd[tokenKey];
+                return (
+                  <td
+                    key={variation}
+                    style={{
+                      border: '1px solid #ddd',
+                      padding: '8px',
+                      backgroundColor: antdTheme[`${type}${variation}`],
+                    }}
+                  >
+                    {color ? <code>{color}</code> : '-'}
+                  </td>
+                );
+              })}
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  );
+};
+
 export const ThemeColors = () => {
   const { colors } = supersetTheme;
 
@@ -52,6 +189,7 @@ export const ThemeColors = () => {
   return (
     <div>
       <h1>Theme Colors</h1>
+      <h2>Color Palette</h2>
       <table
         style={{ borderCollapse: 'collapse', width: '100%', textAlign: 'left' }}
       >
@@ -113,7 +251,12 @@ export const ThemeColors = () => {
         veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
         commodo consequat.
       </div>
-      <h3>The supersetTheme object</h3>
+      <h2>Ant Design Theme Colors</h2>
+      <h3>Functional Colors</h3>
+      <AntDFunctionalColors antdTheme={supersetTheme.antd} />
+      <h3>System Colors</h3>
+      <AntDSystemColors antdTheme={supersetTheme.antd} />
+      <h2>The supersetTheme object</h2>
       <code>
         <pre>{JSON.stringify(supersetTheme, null, 2)}</pre>
       </code>
